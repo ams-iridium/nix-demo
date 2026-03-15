@@ -5,6 +5,14 @@
 inputs.nixos-raspberrypi.lib.nixosSystem {
   specialArgs = inputs;
   modules = [
+    ({...}: {
+      imports = with nixos-raspberrypi.nixosModules; [
+        raspberry-pi-5.base
+        raspberry-pi-5.bluetooth
+        kaiba_network_modules.homeserver
+      ];
+      boot.loader.raspberry-pi.bootloader = "kernel";
+    })
     ({ ... }: {
       # This is the initial version of nixOS that was installed on this system.
       system.stateVersion = "25.11";
@@ -25,7 +33,25 @@ inputs.nixos-raspberrypi.lib.nixosSystem {
       };
       services.pcscd.enable = true;
     })
-    ./hardware-configurations/rpi5.nix
+    ({ ... }: {
+      fileSystems = {
+        "/boot/firmware" = {
+          device = "/dev/disk/by-uuid/2175-794E";
+          fsType = "vfat";
+          options = [
+            "noatime"
+            "noauto"
+            "x-systemd.automount"
+            "x-systemd.idle-timeout=1min"
+          ];
+        };
+        "/" = {
+          device = "/dev/disk/by-uuid/44444444-4444-4444-8888-888888888888";
+          fsType = "ext4";
+          options = [ "noatime" ];
+        };
+      };
+    })
     ./../configurations/users/adam.nix
   ];
 }
