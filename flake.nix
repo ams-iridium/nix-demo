@@ -4,8 +4,12 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     flake-utils.url = "github:numtide/flake-utils";
     nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/main";
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixos-raspberrypi/nixpkgs";
+    };
   };
-  outputs = { self, nixpkgs, flake-utils, nixos-raspberrypi }@inputs: 
+  outputs = { self, nixpkgs, flake-utils, nixos-raspberrypi, disko, ... }@inputs: 
   {
       # Load nixOS configurations from the "systems" directory.
       nixosConfigurations = {

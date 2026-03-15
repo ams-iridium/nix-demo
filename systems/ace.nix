@@ -2,9 +2,11 @@
   inputs,
   ...
 }:
-inputs.nixos-raspberrypi.lib.nixosSystem {
+inputs.nixos-raspberrypi.lib.nixosSystem 
+{
   specialArgs = inputs;
   modules = [
+    inputs.disko.nixosModules.disko
     ({...}: {
       imports = with inputs.nixos-raspberrypi.nixosModules; [
         raspberry-pi-5.base
@@ -41,6 +43,35 @@ inputs.nixos-raspberrypi.lib.nixosSystem {
       services.pcscd.enable = true;
     })
     ({ ... }: {
+      disko.devices = {
+        disk = {
+          nvme0n1 = {
+            device = "/dev/nvme0n1";
+            type = "disk";
+            content = {
+              type = "gpt";
+              partitions = {
+                luks = {
+                  size = "100%";
+                  content = {
+                    type = "luks";
+                    name = "cryptroot";
+                    passwordFile = "/tmp/secret.key";
+                    content = {
+                      type = "btrfs";
+                      extraArgs = ["-L" "nixos" "-f"];
+                      subvolumes = {
+                        "/data" = { mountpoint = "/data"; mountOptions = ["subvol=data" "compress=zstd" "noatime"]; };
+                        "/swap" = { mountpoint = "/swap"; swap.swapfile.size = "16G"; };
+                      };
+                    };
+                  };
+                };
+              };
+            };
+          };
+        };
+      };
       fileSystems = {
         "/boot/firmware" = {
           device = "/dev/disk/by-uuid/2175-794E";
