@@ -9,7 +9,6 @@ inputs.nixos-raspberrypi.lib.nixosSystem {
       imports = with inputs.nixos-raspberrypi.nixosModules; [
         raspberry-pi-5.base
         raspberry-pi-5.bluetooth
-        kaiba_network_modules.homeserver
       ];
       boot.loader.raspberry-pi.bootloader = "kernel";
     })
