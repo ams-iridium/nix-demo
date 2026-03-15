@@ -1,5 +1,5 @@
-{ inputs, ... }: {
-  imports = with inputs.nixos-raspberrypi.nixosModules; [
+{ nixos-raspberrypi, ... }: {
+  imports = with nixos-raspberrypi.nixosModules; [
     raspberry-pi-5.base
     raspberry-pi-5.bluetooth
   ];

@@ -11,8 +11,6 @@ inputs.nixos-raspberrypi.lib.nixosSystem {
           experimental-features = [ "nix-command" "flakes" ];
         };
       };
-    })
-    ({ ... }: {
       networking.hostName = "ace";
       networking.firewall.enable = true;
       networking.firewall.allowedTCPPorts = [ 80 443 ];
