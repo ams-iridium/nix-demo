@@ -32,7 +32,7 @@ inputs.nixos-raspberrypi.lib.nixosSystem {
       };
       services.pcscd.enable = true;
     })
-    ./hardware-configurations/rpi5-configuration.nix
-    ../configurations/users/adam.nix
+    ./hardware-configurations/rpi5.nix
+    ./../configurations/users/adam.nix
   ];
 }
