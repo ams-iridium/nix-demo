@@ -48,6 +48,15 @@ inputs.nixos-raspberrypi.lib.nixosSystem
           nvme0n1 = {
             type = "disk";
             device = "/dev/nvme0n1";
+            content = {
+              type = "gpt";
+              partitions = {
+                luks = {
+                  size = "100%";
+                  label = "luks";
+                };
+              };
+            };
           };
         };
       };
