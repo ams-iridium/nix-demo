@@ -39,7 +39,7 @@ in
       serviceConfig = {
         Type = "oneshot";
         User = cfg.service-name;
-        Group = "messagebus";
+        Group = "root";
         WorkingDirectory = cfg.working-directory;
         RemainAfterExit = true;
         # This command will fail if the OTP private key hasn't been set (e.g. is all 0s)
@@ -56,7 +56,7 @@ in
       home = cfg.working-directory;
       createHome = true;
       isSystemUser = true;
-      group = "messagebus";
+      group = "root";
     };
   };
 }
