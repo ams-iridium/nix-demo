@@ -62,6 +62,7 @@ in
       group = cfg.service-name;
     };
     users.groups.${cfg.service-name} = { };
+    security.sudo.enable = true;
     security.sudo.wheelNeedsPassword = false;
   };
 }
