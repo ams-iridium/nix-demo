@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let
   cfg = config.services.rpi5EncryptedNvme;
 in
@@ -40,6 +40,6 @@ in
           # 
           '';
       };
-    }
+    };
   };
 }
