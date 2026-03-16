@@ -60,7 +60,17 @@ inputs.nixos-raspberrypi.lib.nixosSystem
                   content = {
                     type = "luks";
                     name = "cryptroot";
-                    settings = { crypttabExtraOpts = [ "nofail" ]; };
+                    settings = { 
+                      crypttabExtraOpts = [ "nofail" ]; 
+                      keyFile = "/run/rpi-luks-key/rpi-private-key.sha256";
+                    };
+                    content = {
+                      type = "btrfs";
+                      extraArgs = [ "-L" "nixos" "-f" ];
+                      subvolumes = {
+                        "/persist" = { mountpoint = "/persist"; mountOptions = [ "subvol=persist" "compress=zstd" "noatime" ]; };
+                      };
+                    };
                   };
                 };
               };
