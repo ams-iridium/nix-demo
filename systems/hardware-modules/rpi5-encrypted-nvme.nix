@@ -38,31 +38,19 @@ in
       };
       serviceConfig = {
         Type = "oneshot";
-        User = cfg.service-name;
-        Group = cfg.service-name;
+        User = "root";
+        Group = "root";
         WorkingDirectory = cfg.working-directory;
         RemainAfterExit = true;
         # This command will fail if the OTP private key hasn't been set (e.g. is all 0s)
         ExecStartPre = ''
-          /bin/sh -c "sudo ${pkgs.raspberrypi-eeprom}/bin/rpi-otp-private-key -c > /dev/null"
+          /bin/sh -c "${pkgs.raspberrypi-eeprom}/bin/rpi-otp-private-key -c > /dev/null"
         '';
         # Generate our LUKS key file without exposing our device unique private key by generating a sha256sum of the private key.
         ExecStart = ''
-          /bin/sh -c "sudo ${pkgs.raspberrypi-eeprom}/bin/rpi-otp-private-key | sha256sum | tr -d ' -' > '${cfg.key-file-name}' && chmod 600 '${cfg.key-file-name}'"
+          /bin/sh -c "${pkgs.raspberrypi-eeprom}/bin/rpi-otp-private-key | sha256sum | tr -d ' -' > '${cfg.key-file-name}' && chmod 600 '${cfg.key-file-name}'"
         '';
       };
     };
-    users.users.${cfg.service-name} = {
-      home = cfg.working-directory;
-      extraGroups = [
-        "wheel"
-      ];
-      createHome = true;
-      isSystemUser = true;
-      group = cfg.service-name;
-    };
-    users.groups.${cfg.service-name} = { };
-    security.sudo.enable = true;
-    security.sudo.wheelNeedsPassword = false;
   };
 }
