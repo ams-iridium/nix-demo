@@ -28,16 +28,21 @@ in
     # The LUKS key is a sha256sum of this device's OTP private key.
     systemd.services."$(cfg.service-name)" = {
       unitConfig = {
-        RequiresMountsFor = "/run/rpi-luks-key";
+        RequiresMountsFor = cfg.WorkingDirectory;
       };
       serviceConfig = {
         Type = "oneshot";
-        User = "rpi-luks-key";
-        Group = "rpi-luks-key";
-        WorkingDirectory = "/run/rpi-luks-key";
+        User = cfg.service-name;
+        Group = cfg.service-name;
+        WorkingDirectory = cfg.WorkingDirectory;
         RemainAfterExit = true;
+        ExecStartPre = ''
+          # This command will fail if the OTP private key hasn't been set (e.g. is all 0s)
+          /bin/sh -c "${pkgs.raspberrypi-eeprom}/bin/rpi-otp-private-key -c"
+        '';
         ExecStart = ''
-          # 
+          # Generate our LUKS key file without exposing our device unique private key by generating a sha256sum of the private key.
+          /bin/sh -c "rpi-otp-private-key | sha256sum | tr -d ' -'"
           '';
       };
     };

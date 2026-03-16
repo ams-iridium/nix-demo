@@ -55,6 +55,10 @@ inputs.nixos-raspberrypi.lib.nixosSystem
             device = "/dev/nvme0n1";
             content = {
               type = "gpt";
+              # settings = {
+                # Since this isn't a rootfs device, allow the system to boot even if this system doesn't come up.
+                # crypttabExtraOpts = [ "nofail" ];   
+              # };
               partitions = {
                 luks = {
                   size = "100%";
