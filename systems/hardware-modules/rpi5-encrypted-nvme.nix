@@ -5,13 +5,12 @@ in
 {
   imports = [
   ];
-
   options.services.rpi5EncryptedNvme = {
     enable = lib.mkEnableOption "Configure the system to create encrypted storage on the NVMe device";
     service-name = lib.mkOption {
       type = lib.types.str;
       default = "rpi-luks-key";
-      description = "The name of this service, which is also the name of the user & group assigned to this service.";
+      description = "The name of this service, which is also the name of the user & group that owns this file.";
       internal = true;
     };
     working-directory = lib.mkOption {
