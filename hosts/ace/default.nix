@@ -9,7 +9,6 @@ inputs.nixos-raspberrypi.lib.nixosSystem
     ../../modules/users/adam.nix
     inputs.home-manager.nixosModules.default
     ({ pkgs, ...}: {
-
       imports = with inputs.nixos-raspberrypi.nixosModules; [
         raspberry-pi-5.base
         raspberry-pi-5.bluetooth
