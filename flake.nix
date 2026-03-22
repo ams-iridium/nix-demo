@@ -12,9 +12,8 @@
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    vscode-server.url = "github:nix-community/nixos-vscode-server";
   };
-  outputs = { self, nixpkgs, flake-utils, nixos-raspberrypi, disko, home-manager, vscode-server, ... }@inputs: 
+  outputs = { self, nixpkgs, flake-utils, nixos-raspberrypi, disko, home-manager, ... }@inputs: 
   {
       # Load nixOS configurations from the "systems" directory.
       nixosConfigurations = {

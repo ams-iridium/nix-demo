@@ -8,7 +8,6 @@ inputs.nixos-raspberrypi.lib.nixosSystem
   modules = [
     ../../modules/users/adam.nix
     inputs.home-manager.nixosModules.default
-    inputs.vscode-server.nixosModules.default
     ({ pkgs, ...}: {
 
       imports = with inputs.nixos-raspberrypi.nixosModules; [
@@ -38,7 +37,8 @@ inputs.nixos-raspberrypi.lib.nixosSystem
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
       home-manager.users.adam = import ../../home/adam.nix;
-      services.vscode-server.enable = true;
+      # Needed for vscode
+      programs.nix-ld.enable = true;
     })
 
     ({ ... }: {
