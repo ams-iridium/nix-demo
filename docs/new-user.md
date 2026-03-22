@@ -56,6 +56,7 @@ What this does:
 - `isNormalUser = true;` means this is a regular login user
 - `extraGroups = [ "wheel" ];` gives sudo access on this host
 - `openssh.authorizedKeys.keys` lets the user log in with SSH keys
+  - You can copy/paste your *public* ssh key here to get remote ssh access.
 
 If the user should not have sudo access, remove `"wheel"` from `extraGroups`.
 

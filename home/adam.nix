@@ -16,14 +16,6 @@
 
   programs.bash.enable = true;
 
-#  programs.git = {
-#    enable = true;
-#    settings = {
-#      userName = "ams-tech";
-#      userEmail = "ams-tech@users.noreply.github.com";
-#    };
-#  };
-
   home.sessionVariables = {
     EDITOR = "vim";
   };
