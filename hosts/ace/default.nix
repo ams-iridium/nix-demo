@@ -1,12 +1,11 @@
 {
-  home-manager,
   ...
 }:
 {
   imports = [
+    # TODO: when root access is no longer required, move this to the top-level flake.nix file.
     ../../modules/users/adam.nix
     ./hardware-configuration.nix
-    home-manager.nixosModules.default
   ];
   # This is the initial version of nixOS that was installed on this system.
   system.stateVersion = "25.11";
@@ -25,11 +24,6 @@
     nssmdns4 = true;
   };
   services.pcscd.enable = true;
-
-  # Home Manager integration
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
-  home-manager.users.adam = import ../../home/adam.nix;
   # Needed for vscode
   programs.nix-ld.enable = true;
 }

@@ -1,5 +1,9 @@
-{ ... }: 
+{ home-manager, ... }: 
 {
+  imports = [
+    home-manager.nixosModules.default
+  ];
+  
   users.users.adam = {
     isNormalUser = true;
     description = "Test account for Adam Schafer";
@@ -12,4 +16,9 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIojZ/xu4CVq5TbY51CMUlRiWnSdkS7ZN9xL10gNrFux black@plagueis"
     ];
   };
+
+  # Home Manager integration
+  home-manager.useGlobalPkgs = true;
+  home-manager.useUserPackages = true;
+  home-manager.users.adam = import ../../home/adam.nix;
 }
