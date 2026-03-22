@@ -13,6 +13,7 @@ pkgs.testers.runNixOSTest {
           imports = [
             ../configurations/openvpn/server.nix
           ];
+          
           environment.systemPackages = [ pkgs.openssl pkgs.coreutils ];
         };
       # OpenVPN client running a webserver

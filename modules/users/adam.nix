@@ -1,6 +1,15 @@
-# The "adam" user is a root development account.  Ideally, we'll design the need for this out of the system.
-{...}: 
+{ ... }: 
 {
+  # This is the initial version of nixOS that was installed on this system.
+  system.stateVersion = "25.11";
+  nix = {
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+    };
+  };
+  networking.hostName = "ace";
+  networking.firewall.enable = true;
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
   users.users.adam = {
     isNormalUser = true;
     extraGroups = [
@@ -10,7 +19,11 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJMjtOqSWLDq79t/9XljmBrfBVm8deQJdOQmTV7c45Ni adam" # content of authorized_keys file
     ];
   };
-  # We don't have a password on this accunt, so sudo shouldn't ask for one.
-  # This can have downstream effects, so be averse to including this configuration in production.
-  security.sudo.wheelNeedsPassword = false; 
+  security.sudo.wheelNeedsPassword = false;
+  services.openssh.enable = true;
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+  };
+  services.pcscd.enable = true;
 }
