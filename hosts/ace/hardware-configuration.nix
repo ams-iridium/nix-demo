@@ -20,15 +20,6 @@
       fsType = "ext4";
       options = [ "noatime" ];
     };
-    "/data" = {
-      device = "/dev/disk/by-label/NixOS-Data";
-      options = [ # If you don't have this options attribute, it'll default to "defaults" 
-        # boot options for fstab. Search up fstab mount options you can use
-        "users" # Allows any user to mount and unmount
-        "nofail" # Prevent system from failing if this drive doesn't mount
-        "exec" # Permit execution of binaries and other executable files
-      ];
-    };
   };
   boot.loader.raspberry-pi.bootloader = "kernel";
 }
