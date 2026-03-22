@@ -31,4 +31,11 @@
   home.packages = with pkgs; [
     
   ];
+
+  programs.git = {
+    enable = true;
+
+    settings.user.name = "ams-tech";
+    settings.user.email = "ams-tech@users.noreply.github.com";
+  };
 }
