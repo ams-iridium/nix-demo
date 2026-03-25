@@ -1,5 +1,5 @@
 
-{...}:
+{disko, ...}:
 let
   firmwarePartition = {
     # label = "FIRMWARE";
