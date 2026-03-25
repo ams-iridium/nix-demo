@@ -61,11 +61,19 @@
               };
             };
             root = {
-              size = "100%";
+              size = "256G";
               content = {
                 type = "filesystem";
                 format = "ext4";
                 mountpoint = "/";
+              };
+            };
+            data = {
+              size = "100%";
+              content = {
+                type = "filesystem";
+                format = "ext4";
+                mountpoint = "/data";
               };
             };
           };
