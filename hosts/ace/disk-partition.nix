@@ -70,8 +70,8 @@
                 mountpoint = "/";
               };
             };
-            data = {
-              size = "100M";
+            luks = {
+              size = "100%";
               content = {
                 type = "luks";
                 name = "crypted";
@@ -91,6 +91,21 @@
                   vg = "pool";
                 };
               };
+            };
+          };
+        };
+      };
+    };
+    lvm_vg = {
+      pool = {
+        type = "lvm_vg";
+        lvs = {
+          data = {
+            size = "100%";
+            content = {
+              type = "filesystem";
+              format = "ext4";
+              mountpoint = "/data";
             };
           };
         };
