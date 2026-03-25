@@ -1,4 +1,4 @@
-{ nixos-raspberrypi, ... }: {
+{ nixos-raspberrypi, disko, config, ... }: {
   imports = with nixos-raspberrypi.nixosModules; [
     raspberry-pi-5.base
     raspberry-pi-5.page-size-16k
