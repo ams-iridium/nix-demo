@@ -9,6 +9,7 @@
   imports = [
     disko.nixosModules.disko
   ];
+  # Create commands to mount & unmount our decryption key
   disko.devices = {
     disk = {
       main = {
@@ -70,11 +71,25 @@
               };
             };
             data = {
-              size = "100%";
+              size = "100M";
               content = {
-                type = "filesystem";
-                format = "ext4";
-                mountpoint = "/data";
+                type = "luks";
+                name = "crypted";
+                extraOpenArgs = [ ];
+                settings = {
+                  keyFile = "/run/luks.key";
+                  allowDiscards = true;
+                  preOpenCommands = ''
+                    echo "12345" > "/run/luks.key"
+                  '';
+                  postOpenCommands = ''
+                    rm "/run/luks.key"
+                  '';
+                };
+                content = {
+                  type = "lvm_pv";
+                  vg = "pool";
+                };
               };
             };
           };
