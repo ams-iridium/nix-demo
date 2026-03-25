@@ -13,6 +13,7 @@
     disk = {
       main = {
         type = "disk";
+        device = "/dev/nvme0n1";
         content = {
           type = "gpt";
           partitions = {
@@ -60,8 +61,8 @@
                 ];
               };
             };
-            root = {
-              size = "256G";
+            rootfs = {
+              size = "80G";
               content = {
                 type = "filesystem";
                 format = "ext4";
