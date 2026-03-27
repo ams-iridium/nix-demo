@@ -9,7 +9,7 @@
   imports = [
     disko.nixosModules.disko
   ];
-  # Create commands to mount & unmount our decryption key
+  boot.initrd.systemd.enable = true;
   disko.devices = {
     disk = {
       main = {
