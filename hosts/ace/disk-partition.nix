@@ -9,6 +9,7 @@
   imports = [
     disko.nixosModules.disko
   ];
+  boot.kernelParams = [ "rd.systemd.debug_shell=1" ];
   boot.initrd.systemd.enable = true;
   boot.initrd.systemd.services.my-test-secret = {
     description = "Create temporary initrd secret";
