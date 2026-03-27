@@ -14,11 +14,13 @@
   boot.initrd.systemd.services.my-test-secret = {
     description = "Create temporary initrd secret";
 
-    wantedBy = [ "initrd.target" ];
+    wantedBy = [ "initrd.target" "cryptsetup.target" ];
+
 
     before = [
       "initrd-root-device.target"   # before disk discovery/mount
       "sysroot.mount"
+      "cryptsetup.target"
     ];
 
     unitConfig.DefaultDependencies = false;
