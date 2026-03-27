@@ -9,17 +9,12 @@
   imports = [
     disko.nixosModules.disko
   ];
-  boot.kernelParams = [ "rd.systemd.debug_shell=1" ];
-  boot.initrd.systemd.enable = true;
+  # Create commands to mount & unmount our decryption key
   boot.initrd.systemd.services.my-test-secret = {
     description = "Create temporary initrd secret";
 
-    wantedBy = [ "initrd.target" ];
-
-    before = [
-      "initrd-root-device.target"   # before disk discovery/mount
-      "sysroot.mount"
-    ];
+    requiredBy = [ "cryptsetup.target" ];
+    before = [ "cryptsetup.target" ];
 
     unitConfig.DefaultDependencies = false;
 
@@ -28,7 +23,7 @@
     };
 
     script = ''
-      echo "12345" > /run/my-test-secret.txt
+      echo "12345" > /run/luks.key
     '';
   };
   disko.devices = {
@@ -90,6 +85,37 @@
                 format = "ext4";
                 mountpoint = "/";
               };
+            };
+            luks = {
+              size = "100%";
+              content = {
+                type = "luks";
+                name = "crypted";
+                extraOpenArgs = [ ];
+                settings = {
+                  keyFile = "/run/luks.key";
+                  allowDiscards = true;
+                };
+                content = {
+                  type = "lvm_pv";
+                  vg = "pool";
+                };
+              };
+            };
+          };
+        };
+      };
+    };
+    lvm_vg = {
+      pool = {
+        type = "lvm_vg";
+        lvs = {
+          data = {
+            size = "100%";
+            content = {
+              type = "filesystem";
+              format = "ext4";
+              mountpoint = "/data";
             };
           };
         };
