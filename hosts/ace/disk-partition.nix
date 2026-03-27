@@ -10,6 +10,26 @@
     disko.nixosModules.disko
   ];
   boot.initrd.systemd.enable = true;
+  boot.initrd.systemd.services.my-test-secret = {
+    description = "Create temporary initrd secret";
+
+    wantedBy = [ "initrd.target" ];
+
+    before = [
+      "initrd-root-device.target"   # before disk discovery/mount
+      "sysroot.mount"
+    ];
+
+    unitConfig.DefaultDependencies = false;
+
+    serviceConfig = {
+      Type = "oneshot";
+    };
+
+    script = ''
+      echo "12345" > /run/my-test-secret.txt
+    '';
+  };
   disko.devices = {
     disk = {
       main = {
