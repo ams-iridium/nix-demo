@@ -9,12 +9,17 @@
   imports = [
     disko.nixosModules.disko
   ];
+  boot.initrd.systemd.enable = true;
   # Create commands to mount & unmount our decryption key
   boot.initrd.systemd.services.my-test-secret = {
     description = "Create temporary initrd secret";
 
-    requiredBy = [ "cryptsetup.target" ];
-    before = [ "cryptsetup.target" ];
+    wantedBy = [ "initrd.target" ];
+
+    before = [
+      "initrd-root-device.target"   # before disk discovery/mount
+      "sysroot.mount"
+    ];
 
     unitConfig.DefaultDependencies = false;
 
@@ -30,7 +35,6 @@
     disk = {
       main = {
         type = "disk";
-        device = "/dev/nvme0n1";
         content = {
           type = "gpt";
           partitions = {
