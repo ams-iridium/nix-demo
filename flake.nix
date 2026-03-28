@@ -24,6 +24,7 @@
       luksKeySalt = "some-test-salt";
     in 
     {
+
     }
   ) //
   {
@@ -34,11 +35,12 @@
         modules = [
           ./hosts/ace
           ./modules/rpi-otp-luks-key.nix
-        ];
+        ];        
       };
 
       rpi5-installer = nixos-raspberrypi.nixosConfigurations.rpi5-installer.extendModules {
         modules = [ ./modules/rpi-otp-luks-key.nix ];
+
       };
     };
 
