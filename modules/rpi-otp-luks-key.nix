@@ -11,10 +11,12 @@ let
     };
     # before = [ "cryptsetup.target" ];
     script = ''
-      install -d -m 0700 ${secretsDirectory}
-      # replace this with rpi-otp-private-key logic
-      echo "$(${pkgs.raspberrypi-eeprom}/bin/rpi-otp-private-key)${luksKeySalt}" | sha256sum | tr -d ' -' > '${luksKeyFile}' 
-      chmod 0400 ${luksKeyFile}
+      install -d -m 0700 '${secretsDirectory}'
+      '${pkgs.raspberrypi-eeprom}/bin/rpi-otp-private-key' > '${luksKeyFile}.tmp'
+      echo '${luksKeySalt}' >> '${luksKeyFile}.tmp'
+      cat '${luksKeyFile}.tmp' | sha256sum | tr -d ' -' > '${luksKeyFile}' 
+      rm -f '${luksKeyFile}.tmp'
+      chmod 0400 '${luksKeyFile}'
     '';
   } // extraConfig;
 in
