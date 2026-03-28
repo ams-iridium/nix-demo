@@ -33,10 +33,7 @@ in
   };
   boot.initrd.systemd.services.rpi-otp-luks-key-initrd = getKeyService {
     wantedBy = [ "initrd.target" ];
-    before = [
-      "initrd-root-device.target"   # before disk discovery/mount
-      "sysroot.mount"
-    ];
+    before = [ "cryptsetup.target" ];
     unitConfig.DefaultDependencies = false;
   };
 
