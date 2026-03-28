@@ -4,7 +4,7 @@ let
   luksKeyFile = "${secretsDirectory}/luks.key";
   luksKeySalt = "some-test-salt";
   
-  rpiOtpKeyCommand = "echo '45678'";
+  rpiOtpKeyCommand = "echo '45678dddddd'";
 
   keygenScript = pkgs.writeShellScriptBin "rpi-gen-luks-key" ''
     echo "$(${rpiOtpKeyCommand}) ${luksKeySalt}" | rev | cut -c 1-25 | rev
