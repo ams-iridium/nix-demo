@@ -31,6 +31,8 @@ in
   systemd.services.rpi-otp-luks-key = getKeyService {
     wantedBy = [ "multi-user.target" ];
   };
+
+
   boot.initrd.systemd.services.rpi-otp-luks-key-initrd = getKeyService {
     wantedBy = [ "initrd.target" ];
     before = [
@@ -39,6 +41,9 @@ in
     ];
     unitConfig.DefaultDependencies = false;
   };
+  boot.initrd.systemd.extraBin = [
+    "${keygenScript}/bin/rpi-gen-luks-key"
+  ];
 
   environment.systemPackages = [
     keygenScript

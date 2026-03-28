@@ -35,7 +35,6 @@
         modules = [
           ./hosts/ace
           ./modules/rpi-otp-luks-key.nix
-          ./modules/initrd-systemd-log.nix
         ];        
       };
 
