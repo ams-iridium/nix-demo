@@ -3,14 +3,13 @@ let
   secretsDirectory = "/run/secrets";
   luksKeyFile = "${secretsDirectory}/luks.key";
   luksKeySalt = "some-test-salt";
-  
-  rpiOtpKeyCommand = "echo '45678dddddd'";
 
   keygenScript = pkgs.writeShellScriptBin "rpi-gen-luks-key" ''
     if [ "$EUID" -ne 0 ]; then
       echo "Must be run as root"
       exit -1
     fi
+    set -e
     echo "$(${pkgs.raspberrypi-eeprom}/bin/rpi-otp-private-key)${luksKeySalt}" | sha256sum | tr -d ' -'
   '';
 
