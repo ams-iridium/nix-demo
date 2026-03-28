@@ -25,5 +25,6 @@
   # Pause in initrd just before handing off to the real rootfs.
   boot.kernelParams = [
     "rd.systemd.break=pre-switch-root"
+    "rd.systemd.unit=rescue.target"
   ];
 }
