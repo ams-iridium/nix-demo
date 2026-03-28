@@ -5,10 +5,11 @@ let
   luksKeySalt = "some-test-salt";
 
   keygenScript = pkgs.writeShellScriptBin "rpi-gen-luks-key" ''
+    # Exit on any error
     set -e
     # The '-c' flag ensures the key is not all 0s.
-    otp_secret=$(${pkgs.raspberrypi-eeprom}/bin/rpi-op-private-key -c)
-    echo "${luksKeySalt}" | sha256sum | tr -d ' -'
+    otp_secret=$(${pkgs.raspberrypi-eeprom}/bin/rpi-otp-private-key -c)
+    echo "${luksKeySalt}$otp_secret" | sha256sum | tr -d ' -'
   '';
 
   getKeyService = extraConfig: {
