@@ -10,8 +10,8 @@
     disko.nixosModules.disko
   ];
   boot.initrd.systemd.enable = true;
-  # Create commands to mount & unmount our decryption key
-  systemd.services.my-test-secret = {
+
+  systemd.services.rpi-otp-luks-key = {
     description = "Create temporary initrd secret";
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
