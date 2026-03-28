@@ -11,7 +11,7 @@ let
       echo "Must be run as root"
       exit -1
     fi
-    echo "$(${pkgs.raspberrypi-eeprom}/bin/rpi-otp-private-key) ${luksKeySalt}" | rev | cut -c 1-25 | rev
+    echo "$(${pkgs.raspberrypi-eeprom}/bin/rpi-otp-private-key) ${luksKeySalt}" | ${pkgs.util-linux}/bin/rev | cut -c 1-25 | ${pkgs.util-linux}/bin/rev
   '';
 
   getKeyService = extraConfig: {
