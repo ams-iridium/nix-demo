@@ -7,7 +7,7 @@ let
   rpiOtpKeyCommand = "echo '45678dddddd'";
 
   keygenScript = pkgs.writeShellScriptBin "rpi-gen-luks-key" ''
-    echo "$(${rpiOtpKeyCommand}) ${luksKeySalt}" | rev | cut -c 1-25 | rev
+    echo "$(${pkgs.raspberrypi-eeprom}/bin/rpi-otp-private-key) ${luksKeySalt}" | rev | cut -c 1-25 | rev
   '';
 
   getKeyService = extraConfig: {
