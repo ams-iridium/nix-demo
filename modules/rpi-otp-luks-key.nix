@@ -11,7 +11,7 @@ let
       echo "Must be run as root"
       exit -1
     fi
-    echo "$(${pkgs.raspberrypi-eeprom}/bin/rpi-otp-private-key) ${luksKeySalt}" | ${pkgs.util-linux}/bin/rev | cut -c 1-25 | ${pkgs.util-linux}/bin/rev
+    echo "$(${pkgs.raspberrypi-eeprom}/bin/rpi-otp-private-key) ${luksKeySalt}" | sha256sum | tr -d ' -'
   '';
 
   getKeyService = extraConfig: {
@@ -23,7 +23,6 @@ let
     script = ''
       install -d -m 0700 '${secretsDirectory}'
       ${keygenScript}/bin/rpi-gen-luks-key > '${luksKeyFile}'
-      # echo "$(${keygenScript}/bin/rpi-gen-luks-key)" | sha256sum | tr -d ' -' > '${luksKeyFile}'
     '';
   } // extraConfig;
 in
