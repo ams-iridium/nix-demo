@@ -26,5 +26,6 @@
   boot.kernelParams = [
     "rd.systemd.break=pre-switch-root"
     "rd.systemd.unit=rescue.target"
+    "rd.systemd.debug_shell"
   ];
 }
