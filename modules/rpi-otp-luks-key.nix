@@ -10,7 +10,7 @@ let
     # The '-c' flag ensures the key is not all 0s.
     # ${pkgs.raspberrypi-eeprom}/bin/rpi-otp-private-key -c 
     # RPI_OTP_SECRET=$(${pkgs.raspberrypi-eeprom}/bin/rpi-otp-private-key)
-    # echo "${luksKeySalt}$RPI_OTP_SECRET" | sha256sum | tr -d ' -'
+    echo "${luksKeySalt}$RPI_OTP_SECRET" | sha256sum | tr -d ' -'
     echo "hello"
   '';
 
