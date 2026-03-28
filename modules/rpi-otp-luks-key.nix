@@ -1,6 +1,6 @@
 {  ... }: 
 let
-  secretsDirectory = "/run/secrcrets";
+  secretsDirectory = "/run/secrets";
   luksKeyFile = "${secretsDirectory}/luks.key";
 
   getKeyService = extraConfig: {
