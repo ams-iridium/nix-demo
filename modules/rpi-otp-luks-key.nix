@@ -8,7 +8,7 @@ let
     # Exit on any error
     set -e
     # The '-c' flag ensures the key is not all 0s.
-    # ${pkgs.raspberrypi-eeprom}/bin/rpi-otp-private-key -c 
+    ${pkgs.raspberrypi-eeprom}/bin/rpi-otp-private-key -c 
     RPI_OTP_SECRET=$(${pkgs.raspberrypi-eeprom}/bin/rpi-otp-private-key)
     echo "${luksKeySalt}$RPI_OTP_SECRET" | sha256sum | tr -d ' -'
   '';
@@ -43,9 +43,12 @@ in
   };
   boot.initrd.systemd.extraBin = {
     rpi-gen-luks-key = "${keygenScript}/bin/rpi-gen-luks-key";
+    rpi-otp-private-key = "${pkgs.raspberrypi-eeprom}/bin/rpi-otp-private-key";
+    
   };
 
   environment.systemPackages = [
     keygenScript
+    pkgs.raspberrypi-eeprom
   ];
 }
