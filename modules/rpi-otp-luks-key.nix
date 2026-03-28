@@ -6,6 +6,7 @@ let
 
   keygenScript = pkgs.writeShellScriptBin "rpi-gen-luks-key" ''
     set -e
+    shopt -s inherit_errexit
     echo "$(${pkgs.raspberrypi-eeprom}/bin/rpi-op-private-key)${luksKeySalt}" | sha256sum | tr -d ' -'
   '';
 
