@@ -6,7 +6,7 @@ let
 
   keygenScript = pkgs.writeShellScriptBin "rpi-gen-luks-key" ''
     # Exit on any error
-    # set -e
+    set -e
     # The '-c' flag ensures the key is not all 0s.
     # ${pkgs.raspberrypi-eeprom}/bin/rpi-otp-private-key -c 
     # RPI_OTP_SECRET=$(${pkgs.raspberrypi-eeprom}/bin/rpi-otp-private-key)
