@@ -3,11 +3,12 @@
   boot.initrd.systemd.enable = true;
 
   boot.initrd.systemd.services.save-initrd-logs = {
-    wantedBy = [ "initrd-switch-root.target" ];
-    after = [ "sysroot.mount" "systemd-journald.service" ];
-    before = [ "initrd-switch-root.target" ];
+    wantedBy = [ "initrd.target" ];
+    after = [
+      "initrd-root-device.target"   # before disk discovery/mount
+      "sysroot.mount"
+    ];
     unitConfig.DefaultDependencies = false;
-
     serviceConfig.Type = "oneshot";
     script = ''
       mkdir -p /sysroot/var/log/initrd
