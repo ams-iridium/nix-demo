@@ -4,7 +4,15 @@
 #  imports = [ ./disko-config.nix ];
 #  disko.devices.disk.main.device = "/dev/sda";
 # }
-{disko, ...}:
+{disko, pkgs, ...}:
+let
+  genLuksKey = pkgs.writeShellScript "gen-luks-key" ''
+    install -d -m 0700 /run/secrets
+    # replace this with rpi-otp-private-key logic
+    echo 12345 > /run/secrets/luks.key
+    chmod 0400 /run/secrets/luks.key
+  '';
+in
 {
   imports = [
     disko.nixosModules.disko
@@ -19,9 +27,7 @@
     serviceConfig = {
       Type = "oneshot";
     };
-    script = ''
-      echo "12345" > /run/luks.key
-    '';
+    script = ''${genLuksKey}'';
   };
 
 
