@@ -11,7 +11,6 @@ let
     ${pkgs.raspberrypi-eeprom}/bin/rpi-otp-private-key -c 
     RPI_OTP_SECRET=$(${pkgs.raspberrypi-eeprom}/bin/rpi-otp-private-key)
     echo "${luksKeySalt}$RPI_OTP_SECRET" | sha256sum | tr -d ' -'
-    echo "completed"
   '';
 
   getKeyService = extraConfig: {
