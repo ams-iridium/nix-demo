@@ -22,4 +22,8 @@ in
   systemd.services.rpi-otp-luks-key = getKeyService {
     wantedBy = [ "multi-user.target" ];
   };
+  boot.initrd.systemd.services.rpi-otp-luks-key = getKeyService {
+    wantedBy = [ "initrd.target" ];
+    unitConfig.DefaultDependencies = false;
+  };
 }
