@@ -25,3 +25,27 @@ This can be configured to use remote caches, but if you're bootstrapping infrast
 ### Install the system image to NVME
 
 `sudo nix run 'github:nix-community/disko/latest#disko-install' --  --flake github:pseudodesign/nix-pseudo-design#ace --disk main --mode format /dev/nvme0n1`
+
+
+## LUKS Filesystem Unlock
+
+```mermaid
+sequenceDiagram
+  participant initrd
+  create participant rpi-otp-luks-key.service
+  initrd->>rpi-otp-luks-key.service: Start Service
+  create participant /run/secret/luks.key@{ "type" : "database" }
+  rpi-otp-luks-key.service-->>/run/secret/luks.key: Gen from OTP
+  destroy rpi-otp-luks-key.service
+  rpi-otp-luks-key.service->>initrd: Success
+  create participant cryptsetup.service
+  initrd->>cryptsetup.service: Start Service
+  /run/secret/luks.key-->>cryptsetup.service: Read File
+  participant rootfs@{ "type" : "database" }
+  cryptsetup.service-->>rootfs: Unlock
+  destroy cryptsetup.service
+  cryptsetup.service->>initrd: Success
+  destroy /run/secret/luks.key
+  initrd--x/run/secret/luks.key: initrd instance is destoryed
+  initrd-)rootfs: Boot into rootfs
+```
