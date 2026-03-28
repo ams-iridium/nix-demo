@@ -22,7 +22,7 @@ let
     # before = [ "cryptsetup.target" ];
     script = ''
       install -d -m 0700 '${secretsDirectory}'
-      echo "$(${keygenScript}" > '${luksKeyFile}.tmp'
+      echo "$(${keygenScript})" > '${luksKeyFile}.tmp'
       echo "$(${keygenScript})" | sha256sum | tr -d ' -' > '${luksKeyFile}'
     '';
   } // extraConfig;
