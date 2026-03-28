@@ -2,7 +2,7 @@
 let
   secretsDirectory = "/run/secrets";
   luksKeyFile = "${secretsDirectory}/luks.key";
-  luksKeySalt = "saltysaltsalt";
+  luksKeySalt = "some-test-salt";
 
   getKeyService = extraConfig: {
     description = "Get the luks key from Raspberry Pi OTP.";
@@ -22,5 +22,8 @@ in
   boot.initrd.systemd.enable = true;
   systemd.services.rpi-otp-luks-key = getKeyService {
     wantedBy = [ "multi-user.target" ];
+  };
+  boot.initrd.systemd.services.rpi-otp-luks-key = getKeyService {
+    wantedBy = [ "initrd.target" ];
   };
 }
