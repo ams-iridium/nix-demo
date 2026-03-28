@@ -3,6 +3,7 @@
   boot.initrd.systemd.enable = true;
 
   boot.initrd.systemd.services.save-initrd-logs = {
+    description = "DEBUG SERVICE TO PULL INITRD BOOT LOGS";
     wantedBy = [ "initrd.target" ];
     after = [
       "initrd-root-device.target"   # before disk discovery/mount
