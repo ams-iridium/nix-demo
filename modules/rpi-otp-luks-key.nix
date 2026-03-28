@@ -7,7 +7,7 @@ let
   rpiOtpKeyCommand = "echo '45678'";
 
   keygenScript = pkgs.writeShellScriptBin "rpi-gen-luks-key" ''
-    echo '"$(${rpiOtpKeyCommand})"${luksKeySalt}' | sha256sum | tr -d ' -'
+    echo '"$(${rpiOtpKeyCommand})"  ${luksKeySalt}'
   '';
 
   getKeyService = extraConfig: {
