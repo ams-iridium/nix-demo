@@ -31,6 +31,7 @@
         specialArgs = inputs;
         modules = [
           ./hosts/ace
+          ./modules/rpi-otp-luks-key.nix
         ];
       };
 
