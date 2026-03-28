@@ -27,7 +27,16 @@ This can be configured to use remote caches, but if you're bootstrapping infrast
 `sudo nix run 'github:nix-community/disko/latest#disko-install' --  --flake github:pseudodesign/nix-pseudo-design#ace --disk main --mode format /dev/nvme0n1`
 
 
-## LUKS Filesystem Unlock
+## LUKS Filesystem
+
+There are two instances where we need the LUKS filesystem key:
+
+* Unlocking the disk in initrd
+* Formatting the initial disk
+
+This section covers how these operations are performed securely.
+
+### Unlocking the Rootfs at Boot
 
 ```mermaid
 sequenceDiagram
@@ -35,7 +44,7 @@ sequenceDiagram
   create participant rpi-otp-luks-key.service
   initrd->>rpi-otp-luks-key.service: Start Service
   create participant /run/secret/luks.key@{ "type" : "database" }
-  rpi-otp-luks-key.service-->>/run/secret/luks.key: Gen from OTP
+  rpi-otp-luks-key.service-->>/run/secret/luks.key: /bin/rpi-otp-luks-key
   destroy rpi-otp-luks-key.service
   rpi-otp-luks-key.service->>initrd: Success
   create participant cryptsetup.service
@@ -49,3 +58,4 @@ sequenceDiagram
   initrd--x/run/secret/luks.key: initrd instance is destoryed
   initrd-)rootfs: Boot into rootfs
 ```
+
