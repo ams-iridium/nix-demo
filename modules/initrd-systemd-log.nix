@@ -11,9 +11,9 @@
     unitConfig.DefaultDependencies = false;
     serviceConfig.Type = "oneshot";
     script = ''
-      mkdir -p /sysroot/var/log/initrd
+      mkdir -p /sysroot/home/adam/initrd
       journalctl --no-pager -b _RUNTIME_SCOPE=initrd \
-        > "/sysroot/var/log/initrd/$(date +%Y%m%d-%H%M%S)-initrd.log"
+        > "/sysroot/home/adam/initrd/$(date +%Y%m%d-%H%M%S)-initrd.log"
     '';
   };
 }
