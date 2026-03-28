@@ -22,9 +22,7 @@ let
     # before = [ "cryptsetup.target" ];
     script = ''
       install -d -m 0700 '${secretsDirectory}'
-      ${rpiOtpKeyCommand} > '${luksKeyFile}.tmp'
-      echo '${luksKeySalt}' >> '${luksKeyFile}.tmp'
-      cat '${luksKeyFile}.tmp' | sha256sum | tr -d ' -'
+      echo '$(${rpiOtpKeyCommand})${luksKeySalt}' | sha256sum | tr -d ' -' > '${luksKeyFile}'
     '';
   } // extraConfig;
 in
