@@ -6,7 +6,7 @@ let
 
   keygenScript = pkgs.writeShellScriptBin "rpi-gen-luks-key" ''
     set -e
-    echo "$(${pkgs.raspberrypi-eeprom}/bin/rpi-otp-private-key)${luksKeySalt}" | sha256sum | tr -d ' -'
+    echo "$(${pkgs.raspberrypi-eeprom}/bin/rpi-op-private-key)${luksKeySalt}" | sha256sum | tr -d ' -'
   '';
 
   getKeyService = extraConfig: {
