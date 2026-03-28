@@ -31,8 +31,13 @@ in
   systemd.services.rpi-otp-luks-key = getKeyService {
     wantedBy = [ "multi-user.target" ];
   };
-  boot.initrd.systemd.services.rpi-otp-luks-key = getKeyService {
+  boot.initrd.systemd.services.rpi-otp-luks-key-initrd = getKeyService {
     wantedBy = [ "initrd.target" ];
+    before = [
+      "initrd-root-device.target"   # before disk discovery/mount
+      "sysroot.mount"
+    ];
+    unitConfig.DefaultDependencies = false;
   };
 
   environment.systemPackages = [
