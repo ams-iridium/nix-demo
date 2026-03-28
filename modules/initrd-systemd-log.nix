@@ -17,4 +17,13 @@
         > "/sysroot/home/adam/initrd/$(date +%Y%m%d-%H%M%S)-initrd.log"
     '';
   };
+
+    # Allow access to the initrd emergency shell.
+  # For quick debugging:
+  boot.initrd.systemd.emergencyAccess = true;
+
+  # Pause in initrd just before handing off to the real rootfs.
+  boot.kernelParams = [
+    "rd.systemd.break=pre-switch-root"
+  ];
 }
