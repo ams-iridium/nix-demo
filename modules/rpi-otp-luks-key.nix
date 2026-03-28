@@ -9,7 +9,7 @@ let
     set -e
     # The '-c' flag ensures the key is not all 0s.
     otp_secret=$(${pkgs.raspberrypi-eeprom}/bin/rpi-otp-private-key -c)
-    echo "${luksKeySalt}$otp_secret" | sha256sum | tr -d ' -'
+    echo "${luksKeySalt}$otp_secret" | cut -c1-25
   '';
 
   getKeyService = extraConfig: {
