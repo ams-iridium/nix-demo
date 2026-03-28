@@ -21,7 +21,7 @@ let
     # before = [ "cryptsetup.target" ];
     script = ''
       install -d -m 0700 '${secretsDirectory}'
-      ${keygenScript}/bin/rpi-gen-luks-key > '${luksKeyFile}'
+      rpi-gen-luks-key > '${luksKeyFile}'
       chmod 600 '${luksKeyFile}'
     '';
   } // extraConfig;
