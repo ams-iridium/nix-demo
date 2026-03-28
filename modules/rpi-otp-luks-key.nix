@@ -41,9 +41,9 @@ in
     ];
     unitConfig.DefaultDependencies = false;
   };
-  boot.initrd.systemd.initrdBin = [
-    keygenScript
-  ];
+  boot.initrd.systemd.extraBin = {
+    rpi-gen-luks-key = "${keygenScript}/bin/rpi-gen-luks-key";
+  };
 
   environment.systemPackages = [
     keygenScript
