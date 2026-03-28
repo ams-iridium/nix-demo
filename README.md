@@ -50,12 +50,21 @@ sequenceDiagram
   create participant cryptsetup.service
   initrd->>cryptsetup.service: Start Service
   /run/secret/luks.key-->>cryptsetup.service: Read File
-  participant rootfs@{ "type" : "database" }
+  create participant rootfs@{ "type" : "database" }
   cryptsetup.service-->>rootfs: Unlock
   destroy cryptsetup.service
   cryptsetup.service->>initrd: Success
   destroy /run/secret/luks.key
   initrd--x/run/secret/luks.key: initrd instance is destoryed
+  destroy initrd
   initrd-)rootfs: Boot into rootfs
 ```
 
+After booting from the EEPROM bootloader, execution is handed off to initrd.  Using systemd-initrd services, we add the following to the boot process:
+
+* Run `rpi-otp-luks-key.service` before `cryptservice` unlocks the rootfs
+  * This service uses the `rpi-otp-luks-key` script to write the secret luks key to `/run/secret/luks.key`
+  * This script reads the raw secret value from OTP, and uses a one-way hash to generate the luks secret key.
+* The `cryptsetup` service starts, unlocking the LUKS block containing the rootfs
+  * This also unlocks any additional filesystem partitions loaded within the block (e.g. persistent user data)
+* The system boots into the rootfs, destroying the `initrd` instance as it boots.
