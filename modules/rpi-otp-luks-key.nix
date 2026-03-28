@@ -3,6 +3,16 @@ let
   secretsDirectory = "/run/secrets";
   luksKeyFile = "${secretsDirectory}/luks.key";
   luksKeySalt = "some-test-salt";
+  
+  rpiOtpKeyCommand = "echo '45678'";
+
+  keygenScript = pkgs.writeShellScriptBin "rpi-gen-luks-key" ''
+    install -d -m 0700 '${secretsDirectory}'
+    '${pkgs.raspberrypi-eeprom}/bin/rpi-otp-private-key' > '${luksKeyFile}.tmp'
+    echo '${luksKeySalt}' >> '${luksKeyFile}.tmp'
+    cat '${luksKeyFile}.tmp' | sha256sum | tr -d ' -'
+    rm -f '${luksKeyFile}.tmp'
+  '';
 
   getKeyService = extraConfig: {
     description = "Get the luks key from Raspberry Pi OTP.";
@@ -12,7 +22,7 @@ let
     # before = [ "cryptsetup.target" ];
     script = ''
       install -d -m 0700 '${secretsDirectory}'
-      echo '12345' > '${luksKeyFile}.tmp'
+      ${rpiOtpKeyCommand} > '${luksKeyFile}.tmp'
       echo '${luksKeySalt}' >> '${luksKeyFile}.tmp'
       cat '${luksKeyFile}.tmp' | sha256sum | tr -d ' -'
     '';

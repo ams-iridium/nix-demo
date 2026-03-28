@@ -24,7 +24,6 @@
       luksKeySalt = "some-test-salt";
     in 
     {
-
     }
   ) //
   {
