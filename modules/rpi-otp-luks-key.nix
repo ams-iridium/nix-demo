@@ -8,8 +8,9 @@ let
     # Exit on any error
     set -e
     # The '-c' flag ensures the key is not all 0s.
+    ${pkgs.raspberrypi-eeprom}/bin/rpi-otp-private-key -c 
     RPI_OTP_SECRET=$(${pkgs.raspberrypi-eeprom}/bin/rpi-otp-private-key)
-    echo "${luksKeySalt}$RPI_OTP_SECRET" | cut -c1-25
+    echo "${luksKeySalt}$RPI_OTP_SECRET" | sha256sum | tr -d ' -'
   '';
 
   getKeyService = extraConfig: {
@@ -19,9 +20,9 @@ let
     };
     # before = [ "cryptsetup.target" ];
     script = ''
-      set -e
       install -d -m 0700 '${secretsDirectory}'
       ${keygenScript}/bin/rpi-gen-luks-key > '${luksKeyFile}'
+      chmod 600 '${luksKeyFile}'
     '';
   } // extraConfig;
 in
