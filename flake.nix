@@ -33,6 +33,17 @@
           ./hosts/ace
         ];
       };
+
+      rpi5-installer = nixos-raspberrypi.nixosConfigurations.rpi5-installer.extendModules {
+        modules = [ ./modules/rpi-otp-luks-key.nix ];
+      };
+    };
+
+    installerImages = let
+      nixos = self.nixosConfigurations;
+      mkImage = nixosConfig: nixosConfig.config.system.build.sdImage;
+    in {
+      rpi5 = mkImage nixos.rpi5-installer;
     };
   };
   
