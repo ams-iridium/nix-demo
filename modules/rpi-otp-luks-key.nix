@@ -5,10 +5,6 @@ let
   luksKeySalt = "some-test-salt";
 
   keygenScript = pkgs.writeShellScriptBin "rpi-gen-luks-key" ''
-    if [ "$EUID" -ne 0 ]; then
-      echo "Must be run as root"
-      exit -1
-    fi
     set -e
     echo "$(${pkgs.raspberrypi-eeprom}/bin/rpi-otp-private-key)${luksKeySalt}" | sha256sum | tr -d ' -'
   '';
