@@ -22,7 +22,7 @@ let
     # before = [ "cryptsetup.target" ];
     script = ''
       install -d -m 0700 '${secretsDirectory}'
-      ${keygenScript} > '${luksKeyFile}'
+      ${keygenScript}/bin/rpi-gen-luks-key > '${luksKeyFile}'
       # echo "$(${keygenScript}/bin/rpi-gen-luks-key)" | sha256sum | tr -d ' -' > '${luksKeyFile}'
     '';
   } // extraConfig;
