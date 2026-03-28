@@ -7,11 +7,7 @@ let
   rpiOtpKeyCommand = "echo '45678'";
 
   keygenScript = pkgs.writeShellScriptBin "rpi-gen-luks-key" ''
-    install -d -m 0700 '${secretsDirectory}'
-    '${pkgs.raspberrypi-eeprom}/bin/rpi-otp-private-key' > '${luksKeyFile}.tmp'
-    echo '${luksKeySalt}' >> '${luksKeyFile}.tmp'
-    cat '${luksKeyFile}.tmp' | sha256sum | tr -d ' -'
-    rm -f '${luksKeyFile}.tmp'
+    echo '"$(${rpiOtpKeyCommand})"${luksKeySalt}' | sha256sum | tr -d ' -'
   '';
 
   getKeyService = extraConfig: {
@@ -22,7 +18,7 @@ let
     # before = [ "cryptsetup.target" ];
     script = ''
       install -d -m 0700 '${secretsDirectory}'
-      echo '$(${rpiOtpKeyCommand})${luksKeySalt}' | sha256sum | tr -d ' -' > '${luksKeyFile}'
+      echo '"$(${rpiOtpKeyCommand})"${luksKeySalt}' | sha256sum | tr -d ' -' > '${luksKeyFile}'
     '';
   } // extraConfig;
 in
@@ -31,4 +27,8 @@ in
   systemd.services.rpi-otp-luks-key = getKeyService {
     wantedBy = [ "multi-user.target" ];
   };
+
+  environment.systemPackages = [
+    keygenScript
+  ];
 }
