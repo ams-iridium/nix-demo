@@ -7,7 +7,7 @@ let
   rpiOtpKeyCommand = "echo '45678dddddd'";
 
   keygenScript = pkgs.writeShellScriptBin "rpi-gen-luks-key" ''
-    if [[ $(/usr/bin/id -u) -ne 0 ]]; then
+    if [ "$EUID" -ne 0 ]; then
       echo "Must be run as root"
       exit -1
     fi
