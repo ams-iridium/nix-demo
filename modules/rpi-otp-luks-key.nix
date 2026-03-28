@@ -13,7 +13,7 @@ let
     script = ''
       install -d -m 0700 ${secretsDirectory}
       # replace this with rpi-otp-private-key logic
-      echo "feedbeef" | sha256sum | tr -d ' -' > '${luksKeyFile}' 
+      echo "$(${pkgs.raspberrypi-eeprom}/bin/rpi-otp-private-key)${luksKeySalt}" | sha256sum | tr -d ' -' > '${luksKeyFile}' 
       chmod 0400 ${luksKeyFile}
     '';
   } // extraConfig;
