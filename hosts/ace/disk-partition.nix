@@ -11,28 +11,20 @@
   ];
   boot.initrd.systemd.enable = true;
   # Create commands to mount & unmount our decryption key
-  boot.initrd.systemd.services.my-test-secret = {
+  systemd.services.my-test-secret = {
     description = "Create temporary initrd secret";
-
-    wantedBy = [ "initrd.target" "cryptsetup.target" ];
-
-
-    before = [
-      "initrd-root-device.target"   # before disk discovery/mount
-      "sysroot.mount"
-      "cryptsetup.target"
-    ];
+    wantedBy = [ "multi-user.target" ];
 
     unitConfig.DefaultDependencies = false;
-
     serviceConfig = {
       Type = "oneshot";
     };
-
     script = ''
       echo "12345" > /run/luks.key
     '';
   };
+
+
   disko.devices = {
     disk = {
       main = {
