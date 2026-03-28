@@ -22,4 +22,6 @@ This can be configured to use remote caches, but if you're bootstrapping infrast
 
 `zstdcat nixos-installer-rpi5-kernel.img.zst | sudo dd of=/dev/mmcblk0 bs=1M status=progress`
 
+### Install the system image to NVME
 
+`sudo nix run 'github:nix-community/disko/latest#disko-install' --  --flake github:pseudodesign/nix-pseudo-design#ace --disk main --mode format /dev/nvme0n1`
