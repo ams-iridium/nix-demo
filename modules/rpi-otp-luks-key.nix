@@ -45,9 +45,6 @@ in
   boot.initrd.systemd.extraBin = {
     rpi-gen-luks-key = "${keygenScript}/bin/rpi-gen-luks-key";
   };
-  boot.initrd.systemd.initrdBin = [
-    keygenScript
-  ];
 
   environment.systemPackages = [
     keygenScript
