@@ -46,11 +46,13 @@
           })
         ];        
       };
+
+
     
-      rpi5-installer = 
-        nixos-raspberrypi.nixosConfigurations.rpi5-installer.extendModules {
+      rpi5-installer = nixos-raspberrypi.lib.nixosSystemFull  {
         modules = [ 
           ./modules/rpi-otp-luks-key.nix
+          ./modules/rpi-installer-disk.nix
           ({ pkgs, ... }: 
           let
             installScript = pkgs.writeShellScriptBin "pd-nix-install" ''
