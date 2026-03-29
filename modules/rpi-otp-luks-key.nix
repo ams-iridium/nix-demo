@@ -18,11 +18,11 @@ let
   } // extraConfig;
 in
 {
-  # boot.initrd.systemd.enable = true;
   systemd.services.rpi-otp-luks-key = getKeyService {
     wantedBy = [ "multi-user.target" ];
   };
 
+  boot.initrd.systemd.enable = true;
 
   boot.initrd.systemd.services.rpi-otp-luks-key-initrd = getKeyService {
     wantedBy = [ "initrd.target" ];
