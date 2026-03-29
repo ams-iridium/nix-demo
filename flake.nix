@@ -39,7 +39,6 @@
           ({ ... }: {
             nixpkgs.overlays = [ self.overlays.default ];
               environment.systemPackages = [
-              installScript
               pkgs.rpi-otp-private-key
               pkgs.rpi-otp-luks-key
             ];
