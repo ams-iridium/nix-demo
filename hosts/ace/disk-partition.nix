@@ -60,14 +60,6 @@
                 ];
               };
             };
-            rootfs = {
-              size = "80G";
-              content = {
-                type = "filesystem";
-                format = "ext4";
-                mountpoint = "/";
-              };
-            };
             luks = {
               size = "100%";
               content = {
@@ -92,6 +84,14 @@
       pool = {
         type = "lvm_vg";
         lvs = {
+          rootfs = {
+            size = "80G";
+            content = {
+              type = "filesystem";
+              format = "ext4";
+              mountpoint = "/";
+            };
+          };
           data = {
             size = "100%";
             content = {
