@@ -8,8 +8,9 @@ let
     description = "Get the luks key from Raspberry Pi OTP.";
     serviceConfig = {
       Type = "oneshot";
-      Environment.SYSTEMD_LOG_LEVEL = "debug";
     };
+    
+    environment.SYSTEMD_LOG_LEVEL = "debug";
     # before = [ "cryptsetup.target" ];
     script = ''
       install -d -m 0700 '${secretsDirectory}'
