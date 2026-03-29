@@ -14,7 +14,6 @@ let
       install -d -m 0700 '${secretsDirectory}'
       rpi-otp-luks-key ${luksKeySalt} > '${luksKeyFile}'
       chmod 600 '${luksKeyFile}'
-      exit 1
     '';
   } // extraConfig;
 in
