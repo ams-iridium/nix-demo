@@ -16,7 +16,7 @@ let
       echo "Installing secrets directory"
       install -d -m 0700 '${secretsDirectory}'
       echo "Running rpi-otp-luks-key"
-      rpi-otp-luks-key ${luksKeySalt} > '${luksKeyFile}'
+      ${pkgs.rpi-otp-luks-key}/bin/rpi-gen-luks-key ${luksKeySalt} > '${luksKeyFile}'
       echo "changing file permissions"
       chmod 600 '${luksKeyFile}'
       echo "Done"
