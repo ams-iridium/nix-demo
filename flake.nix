@@ -36,7 +36,7 @@
         modules = [
           ./hosts/ace
           ./modules/rpi-otp-luks-key.nix
-          ({ ... }: {
+          ({ pkgs, ... }: {
             nixpkgs.overlays = [ self.overlays.default ];
               environment.systemPackages = [
               pkgs.rpi-otp-private-key
