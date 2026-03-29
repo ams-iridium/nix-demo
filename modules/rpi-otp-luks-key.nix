@@ -8,12 +8,13 @@ let
     description = "Get the luks key from Raspberry Pi OTP.";
     serviceConfig = {
       Type = "oneshot";
+      Environment.SYSTEMD_LOG_LEVEL = "debug";
     };
     # before = [ "cryptsetup.target" ];
     script = ''
       install -d -m 0700 '${secretsDirectory}'
       # rpi-otp-luks-key ${luksKeySalt} > '${luksKeyFile}'
-      echo "here's a thrird thing!"
+      echo "one more!!"
       chmod 600 '${luksKeyFile}'
     '';
   } // extraConfig;
