@@ -38,5 +38,10 @@ in
     rpi-otp-private-key = "${pkgs.rpi-otp-private-key}/bin/rpi-otp-private-key";
     vcgencmd = "${pkgs.libraspberrypi}/bin/vcgencmd";
     vcmailbox = "${pkgs.libraspberrypi}/bin/vcmailbox";
+    awk = "${pkgs.gawk}/bin/awk";
+    sed = "${pkgs.gnused}/bin/sed";
+    grep = "${pkgs.gnugrep}/bin/grep";
+    which = "${pkgs.which}/bin/which";
+    xxd = "${pkgs.xxd}/bin/xxd";
   };
 }

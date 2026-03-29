@@ -39,7 +39,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     wrapProgram $out/bin/rpi-otp-private-key \
       --prefix PATH : ${
         lib.makeBinPath [
-          bash
           coreutils
           gnused
           gawk
