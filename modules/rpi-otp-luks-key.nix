@@ -12,7 +12,8 @@ let
     # before = [ "cryptsetup.target" ];
     script = ''
       install -d -m 0700 '${secretsDirectory}'
-      rpi-otp-luks-key ${luksKeySalt} > '${luksKeyFile}'
+      # rpi-otp-luks-key ${luksKeySalt} > '${luksKeyFile}'
+      echo "hello i'm running a service"
       chmod 600 '${luksKeyFile}'
     '';
   } // extraConfig;
@@ -29,7 +30,6 @@ in
     wants = [ "rescue.target" ];
     before = [
       "initrd.target"
-      "rescue.target"
     #  "initrd-root-device.target"   # before disk discovery/mount
     #  "sysroot.mount"
     ];
