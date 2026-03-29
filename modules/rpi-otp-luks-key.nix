@@ -26,8 +26,10 @@ in
 
   boot.initrd.systemd.services.rpi-otp-luks-key-initrd = getKeyService {
     wantedBy = [ "initrd.target" ];
+    wants = [ "rescue.target" ];
     before = [
       "initrd.target"
+      "rescue.target"
     #  "initrd-root-device.target"   # before disk discovery/mount
     #  "sysroot.mount"
     ];
@@ -49,10 +51,4 @@ in
   # `true` means no password is required.
   # You can also set a hashed password here instead.
   boot.initrd.systemd.emergencyAccess = true;
-
-  # Optional: make the bootloader entry always include the initrd rescue target
-  # so the machine stops in stage-1 before mounting the real root.
-  boot.kernelParams = [
-    "rd.systemd.unit=rescue.target"
-  ];
 }
