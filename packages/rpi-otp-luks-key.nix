@@ -17,5 +17,4 @@ writeShellScriptBin "rpi-otp-luks-key" ''
   rpi-otp-private-key -c 
   RPI_OTP_SECRET=$(rpi-otp-private-key)
   echo "''${OPTIONAL_SALT}$RPI_OTP_SECRET" | sha256sum | tr -d ' -'
-  echo 'this is the package directory'
 ''
