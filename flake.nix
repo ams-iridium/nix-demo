@@ -52,7 +52,7 @@
       rpi5-installer = nixos-raspberrypi.lib.nixosSystemFull  {
         specialArgs = inputs;
         modules = [
-          ./modules/rp5-hardware.nix
+          ./modules/rpi5-hardware.nix
           ./modules/rpi-otp-luks-key.nix
           ./modules/rpi-installer-disk.nix
           ({ pkgs, ... }: 
