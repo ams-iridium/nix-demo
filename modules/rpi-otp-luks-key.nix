@@ -44,4 +44,15 @@ in
     which = "${pkgs.which}/bin/which";
     xxd = "${pkgs.xxd}/bin/xxd";
   };
+
+  # Allow an initrd rescue/emergency shell.
+  # `true` means no password is required.
+  # You can also set a hashed password here instead.
+  boot.initrd.systemd.emergencyAccess = true;
+
+  # Optional: make the bootloader entry always include the initrd rescue target
+  # so the machine stops in stage-1 before mounting the real root.
+  boot.kernelParams = [
+    "rd.systemd.unit=rescue.target"
+  ];
 }
