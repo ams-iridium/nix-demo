@@ -72,11 +72,8 @@
       };
     };
 
-    installerImages = let
-      nixos = self.nixosConfigurations;
-      mkImage = nixosConfig: nixosConfig.config.system.build.sdImage;
-    in {
-      rpi5 = mkImage nixos.rpi5-installer;
+    installerImages = {
+      rpi5 = self.nixosConfigurations.rpi5-installer.config.system.build.sdImage;
     };
   };
 }
