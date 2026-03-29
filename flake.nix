@@ -38,7 +38,7 @@
           ./modules/rpi-otp-luks-key.nix
           ({ pkgs, ... }: {
             nixpkgs.overlays = [ self.overlays.default ];
-              environment.systemPackages = [
+            environment.systemPackages = [
               pkgs.rpi-otp-private-key
               pkgs.rpi-otp-luks-key
             ];
