@@ -35,8 +35,8 @@ in
   };
   boot.initrd.systemd.extraBin = {
     rpi-gen-luks-key = "${pkgs.rpi-otp-luks-key}/bin/rpi-gen-luks-key";
-    # rpi-otp-private-key = "${pkgs.rpi-otp-private-key}/bin/rpi-otp-private-key";
-    # vcgencmd = "${pkgs.libraspberrypi}/bin/vcgencmd";
-    # vcmailbox = "${pkgs.libraspberrypi}/bin/vcmailbox";
+    rpi-otp-private-key = "${pkgs.rpi-otp-private-key}/bin/rpi-otp-private-key";
+    vcgencmd = "${pkgs.libraspberrypi}/bin/vcgencmd";
+    vcmailbox = "${pkgs.libraspberrypi}/bin/vcmailbox";
   };
 }
