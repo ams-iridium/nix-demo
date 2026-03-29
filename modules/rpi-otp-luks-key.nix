@@ -18,15 +18,10 @@ let
       echo "changing file permissions"
       chmod 600 '${luksKeyFile}'
       echo "Done"
-      ghdsagdn
     '';
   } // extraConfig;
 in
 {
-  # systemd.services.rpi-otp-luks-key = getKeyService {
-  #  wantedBy = [ "multi-user.target" ];
-  # };
-
   boot.initrd.systemd.enable = true;
 
   boot.initrd.systemd.services.rpi-otp-luks-key-initrd = getKeyService {
