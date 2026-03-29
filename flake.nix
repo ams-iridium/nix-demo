@@ -19,15 +19,15 @@
       pkgs = import nixpkgs {
         inherit system;
       };
-      secretsDirectory = "/run/secrets";
-      luksKeyFile = "${secretsDirectory}/luks.key";
-      luksKeySalt = "some-test-salt";
     in 
     {
-
+       
     }
   ) //
   {
+    overlays.default = final: prev: {
+      rpi-otp-private-key = final.callPackage ./packages/rpi-otp-private-key.nix { };
+    };
     nixosConfigurations = {
       # "'ace' is a Raspberry Pi 5 in Adam's house."
       ace = nixos-raspberrypi.lib.nixosSystemFull {
@@ -35,12 +35,19 @@
         modules = [
           ./hosts/ace
           ./modules/rpi-otp-luks-key.nix
+          ({ ... }: {
+            nixpkgs.overlays = [ self.overlays.default ];
+          })
         ];        
       };
 
       rpi5-installer = nixos-raspberrypi.nixosConfigurations.rpi5-installer.extendModules {
-        modules = [ ./modules/rpi-otp-luks-key.nix ];
-
+        modules = [ 
+          ./modules/rpi-otp-luks-key.nix 
+          ({ ... }: {
+            nixpkgs.overlays = [ self.overlays.default ];
+          })
+        ];
       };
     };
 
