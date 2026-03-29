@@ -21,7 +21,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     owner = "raspberrypi";
     repo = "rpi-eeprom";
     rev = "v2025.12.08-2712";
-    hash = lib.fakeHash;
+    hash = "sha256-WByNvK115PbIJFMkZ4TYjU4QdNkyMrswAWcMlPIw2h4=";
   };
 
   nativeBuildInputs = [ makeWrapper ];
