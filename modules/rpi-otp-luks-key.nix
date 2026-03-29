@@ -10,8 +10,6 @@ let
       Type = "oneshot";
     };
     
-    environment.SYSTEMD_LOG_LEVEL = "debug";
-    # before = [ "cryptsetup.target" ];
     script = ''
       echo "Installing secrets directory"
       install -d -m 0700 '${secretsDirectory}'
@@ -35,8 +33,9 @@ in
     wantedBy = [ "initrd.target" ];
     before = [
       "initrd.target"
-    #  "initrd-root-device.target"   # before disk discovery/mount
-    #  "sysroot.mount"
+      "initrd-root-device.target"   # before disk discovery/mount
+      "sysroot.mount"
+      "cryptsetup.target"
     ];
     unitConfig.DefaultDependencies = false;
   };
