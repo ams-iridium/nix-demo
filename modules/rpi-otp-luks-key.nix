@@ -13,10 +13,13 @@ let
     environment.SYSTEMD_LOG_LEVEL = "debug";
     # before = [ "cryptsetup.target" ];
     script = ''
+      echo "Installing secrets directory"
       install -d -m 0700 '${secretsDirectory}'
-      # rpi-otp-luks-key ${luksKeySalt} > '${luksKeyFile}'
-      echo "one more!!"
+      echo "Running rpi-otp-luks-key"
+      rpi-otp-luks-key ${luksKeySalt} > '${luksKeyFile}'
+      echo "changing file permissions"
       chmod 600 '${luksKeyFile}'
+      echo "Done"
     '';
   } // extraConfig;
 in
