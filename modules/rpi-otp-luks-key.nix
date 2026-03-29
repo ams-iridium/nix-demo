@@ -27,7 +27,6 @@ in
 
   boot.initrd.systemd.services.rpi-otp-luks-key-initrd = getKeyService {
     wantedBy = [ "initrd.target" ];
-    wants = [ "rescue.target" ];
     before = [
       "initrd.target"
     #  "initrd-root-device.target"   # before disk discovery/mount
@@ -46,9 +45,4 @@ in
     which = "${pkgs.which}/bin/which";
     xxd = "${pkgs.xxd}/bin/xxd";
   };
-
-  # Allow an initrd rescue/emergency shell.
-  # `true` means no password is required.
-  # You can also set a hashed password here instead.
-  boot.initrd.systemd.emergencyAccess = true;
 }
