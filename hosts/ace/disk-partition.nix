@@ -75,14 +75,8 @@
                 name = "crypted";
                 extraOpenArgs = [ ];
                 settings = {
-                  keyFile = "/run/luks.key";
+                  keyFile = "/run/secrets/luks.key";
                   allowDiscards = true;
-                  preOpenCommands = ''
-                    echo "12345" > "/run/luks.key"
-                  '';
-                  postOpenCommands = ''
-                    rm "/run/luks.key"
-                  '';
                 };
                 content = {
                   type = "lvm_pv";
