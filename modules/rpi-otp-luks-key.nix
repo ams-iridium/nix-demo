@@ -13,7 +13,7 @@ let
     script = ''
       install -d -m 0700 '${secretsDirectory}'
       # rpi-otp-luks-key ${luksKeySalt} > '${luksKeyFile}'
-      echo "hello i'm running a service"
+      echo "hello i'm running a service -- now this is different!"
       chmod 600 '${luksKeyFile}'
     '';
   } // extraConfig;
