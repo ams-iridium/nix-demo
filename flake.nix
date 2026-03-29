@@ -41,7 +41,7 @@
           })
         ];        
       };
-
+    
       rpi5-installer = 
         nixos-raspberrypi.nixosConfigurations.rpi5-installer.extendModules {
         modules = [ 
