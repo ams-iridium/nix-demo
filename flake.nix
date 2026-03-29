@@ -27,6 +27,7 @@
   {
     overlays.default = final: prev: {
       rpi-otp-private-key = final.callPackage ./packages/rpi-otp-private-key.nix { };
+      rpi-otp-luks-key = final.callPackage ./packages/rpi-otp-luks-key.nix {};
     };
     nixosConfigurations = {
       # "'ace' is a Raspberry Pi 5 in Adam's house."
@@ -41,11 +42,27 @@
         ];        
       };
 
-      rpi5-installer = nixos-raspberrypi.nixosConfigurations.rpi5-installer.extendModules {
+      rpi5-installer = 
+        nixos-raspberrypi.nixosConfigurations.rpi5-installer.extendModules {
         modules = [ 
           ./modules/rpi-otp-luks-key.nix 
-          ({ ... }: {
+          ({ pkgs, ... }: 
+          let
+            installScript = pkgs.writeShellScriptBin "pd-nix-install" ''
+              BRANCH="$1"
+              nix run 'github:nix-community/disko/latest#disko-install' -- \
+                --flake "github:pseudodesign/nix-pseudo-design/''${BRANCH}#ace" \
+                --mode format \
+                --disk main /dev/nvme0n1
+            '';
+          in
+          {
             nixpkgs.overlays = [ self.overlays.default ];
+            networking.nameservers = [ "8.8.8.8" "8.8.4.4" "2001:4860:4860::8888" "2001:4860:4860::8844"];
+            environment.systemPackages = [
+              installScript
+              pkgs.rpi-otp-private-key
+            ];
           })
         ];
       };

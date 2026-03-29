@@ -4,16 +4,6 @@ let
   luksKeyFile = "${secretsDirectory}/luks.key";
   luksKeySalt = "some-test-salt";
 
-  keygenScript = pkgs.writeShellScriptBin "rpi-gen-luks-key" ''
-    # Exit on any error
-    # set -e
-    # The '-c' flag ensures the key is not all 0s.
-    # ${pkgs.rpi-otp-private-key}/bin/rpi-otp-private-key -c 
-    # RPI_OTP_SECRET=$(${pkgs.rpi-otp-private-key}/bin/rpi-otp-private-key)
-    # echo "${luksKeySalt}$RPI_OTP_SECRET" | sha256sum | tr -d ' -'
-    echo 'hello'
-  '';
-
   getKeyService = extraConfig: {
     description = "Get the luks key from Raspberry Pi OTP.";
     serviceConfig = {
@@ -22,7 +12,7 @@ let
     # before = [ "cryptsetup.target" ];
     script = ''
       install -d -m 0700 '${secretsDirectory}'
-      ${keygenScript}/bin/rpi-gen-luks-key > '${luksKeyFile}'
+      ${pkgs.rpi-otp-luks-key}/bin/rpi-otp-luks-key > '${luksKeyFile}'
       chmod 600 '${luksKeyFile}'
     '';
   } // extraConfig;
@@ -48,9 +38,4 @@ in
 #    vcgencmd = "${pkgs.libraspberrypi}/bin/vcgencmd";
 #    vcmailbox = "${pkgs.libraspberrypi}/bin/vcmailbox";
 #  };
-
-  environment.systemPackages = [
-    keygenScript
-    pkgs.rpi-otp-private-key
-  ];
 }

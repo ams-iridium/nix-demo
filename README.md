@@ -20,7 +20,7 @@ This can be configured to use remote caches, but if you're bootstrapping infrast
 
 **TODO: Does this also work on USB?**
 
-`zstdcat nixos-installer-rpi5-kernel.img.zst | sudo dd of=/dev/mmcblk0 bs=1M status=progress`
+`zstdcat result/sd-image/nixos-installer-rpi5-kernel.img.zst | sudo dd of=/dev/mmcblk0 bs=1M status=progress`
 
 ### Install the system image to NVME
 
