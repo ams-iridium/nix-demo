@@ -12,7 +12,7 @@ let
     # before = [ "cryptsetup.target" ];
     script = ''
       install -d -m 0700 '${secretsDirectory}'
-      ${pkgs.rpi-otp-luks-key}/bin/rpi-otp-luks-key > '${luksKeyFile}'
+      ${pkgs.rpi-otp-luks-key}/bin/rpi-otp-luks-key ${luksKeySalt} > '${luksKeyFile}'
       chmod 600 '${luksKeyFile}'
     '';
   } // extraConfig;
