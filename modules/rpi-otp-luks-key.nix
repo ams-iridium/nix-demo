@@ -12,15 +12,16 @@ let
     # before = [ "cryptsetup.target" ];
     script = ''
       install -d -m 0700 '${secretsDirectory}'
-      ${pkgs.rpi-otp-luks-key}/bin/rpi-otp-luks-key ${luksKeySalt} > '${luksKeyFile}'
+      rpi-otp-luks-key ${luksKeySalt} > '${luksKeyFile}'
       chmod 600 '${luksKeyFile}'
+      exit 1
     '';
   } // extraConfig;
 in
 {
-  systemd.services.rpi-otp-luks-key = getKeyService {
-    wantedBy = [ "multi-user.target" ];
-  };
+  # systemd.services.rpi-otp-luks-key = getKeyService {
+  #  wantedBy = [ "multi-user.target" ];
+  # };
 
   boot.initrd.systemd.enable = true;
 
