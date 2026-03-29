@@ -6,11 +6,11 @@ let
 
   keygenScript = pkgs.writeShellScriptBin "rpi-gen-luks-key" ''
     # Exit on any error
-    set -e
+    # set -e
     # The '-c' flag ensures the key is not all 0s.
-    ${pkgs.rpi-otp-private-key}/bin/rpi-otp-private-key -c 
-    RPI_OTP_SECRET=$(${pkgs.rpi-otp-private-key}/bin/rpi-otp-private-key)
-    echo "${luksKeySalt}$RPI_OTP_SECRET" | sha256sum | tr -d ' -'
+    # ${pkgs.rpi-otp-private-key}/bin/rpi-otp-private-key -c 
+    # RPI_OTP_SECRET=$(${pkgs.rpi-otp-private-key}/bin/rpi-otp-private-key)
+    # echo "${luksKeySalt}$RPI_OTP_SECRET" | sha256sum | tr -d ' -'
     echo 'hello'
   '';
 
