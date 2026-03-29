@@ -29,6 +29,7 @@
       rpi-otp-private-key = final.callPackage ./packages/rpi-otp-private-key.nix { };
       rpi-otp-luks-key = final.callPackage ./packages/rpi-otp-luks-key.nix {};
     };
+    
     nixosConfigurations = {
       # "'ace' is a Raspberry Pi 5 in Adam's house."
       ace = nixos-raspberrypi.lib.nixosSystemFull {
@@ -78,5 +79,4 @@
       rpi5 = mkImage nixos.rpi5-installer;
     };
   };
-  
 }
