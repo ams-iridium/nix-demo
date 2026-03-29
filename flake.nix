@@ -49,6 +49,7 @@
       rpi5-installer = 
         nixos-raspberrypi.nixosConfigurations.rpi5-installer.extendModules {
         modules = [ 
+          ./modules/rpi-otp-luks-key.nix
           ({ pkgs, ... }: 
           let
             installScript = pkgs.writeShellScriptBin "pd-nix-install" ''
