@@ -20,6 +20,7 @@ let
       echo "changing file permissions"
       chmod 600 '${luksKeyFile}'
       echo "Done"
+      ghdsagdn
     '';
   } // extraConfig;
 in
