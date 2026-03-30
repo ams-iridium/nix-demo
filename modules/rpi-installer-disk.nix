@@ -30,20 +30,13 @@
                 ];
               };
             };
-            swap = {
-              priority = 2;
-              size = "16G";
-              content = {
-                type = "swap";
-              };
-            };
             root = {
               # label = "ESP";
               type = "EF00";  # EFI System Partition (ESP)
               attributes = [
                 2 # Legacy BIOS Bootable, for U-Boot to find extlinux config
               ];
-              size = "100%";
+              size = "3G";
               content = {
                 type = "filesystem";
                 format = "ext4";
@@ -51,6 +44,13 @@
                 mountOptions = [
                   "noatime"
                 ];
+              };
+            };
+            swap = {
+              priority = 2;
+              size = "100%";
+              content = {
+                type = "swap";
               };
             };
           };
