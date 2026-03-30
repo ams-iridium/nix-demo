@@ -30,18 +30,7 @@
                 ];
               };
             };
-            installer-swap = {
-              size = "2G";
-              content = {
-                type = "swap";
-              };
-            };
-            installer-root = {
-              # label = "ESP";
-              type = "EF00";  # EFI System Partition (ESP)
-              attributes = [
-                2 # Legacy BIOS Bootable, for U-Boot to find extlinux config
-              ];
+            installer-rootfs = {
               size = "100%";
               content = {
                 type = "filesystem";
