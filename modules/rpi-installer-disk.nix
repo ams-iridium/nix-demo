@@ -5,12 +5,12 @@
   ];
   disko.devices = {
     disk = {
-      main = {
+      installer = {
         type = "disk";
         content = {
           type = "gpt";
           partitions = {
-            boot = {
+            installer-boot = {
               # label = "FIRMWARE";
               priority = 1;
               type = "0700";  # Microsoft basic data
@@ -30,13 +30,13 @@
                 ];
               };
             };
-            swap = {
+            installer-swap = {
               size = "2G";
               content = {
                 type = "swap";
               };
             };
-            root = {
+            installer-root = {
               # label = "ESP";
               type = "EF00";  # EFI System Partition (ESP)
               attributes = [
@@ -52,7 +52,6 @@
                 ];
               };
             };
-
           };
         };
       };
