@@ -3,9 +3,8 @@
 let
   installScript = pkgs.writeShellScriptBin "pd-nix-install" ''
     clear
-    BRANCH="${1:-latest}"
     nix run 'github:nix-community/disko/latest#disko-install' -- \
-      --flake "github:pseudodesign/nix-pseudo-design/``${BRANCH}#ace" \
+      --flake "github:pseudodesign/nix-pseudo-design/latest#ace" \
       --mode format \
       --disk main /dev/nvme0n1
   '';

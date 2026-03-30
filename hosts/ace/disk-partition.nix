@@ -91,7 +91,7 @@
             content = {
               type = "filesystem";
               format = "ext4";
-              mountpoint = "/home-manager";
+              mountpoint = "/home";
             };
           };
         };

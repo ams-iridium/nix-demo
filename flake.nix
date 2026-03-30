@@ -55,7 +55,7 @@
           ./modules/rpi5-hardware.nix
           ./modules/rpi-otp-luks-key.nix
           ./modules/rpi-installer-disk.nix
-          ./modules/auto-installer-service.nix
+          ./modules/rpi-installer-service.nix
           ({ pkgs, ... }: 
           {
             nixpkgs.overlays = [ self.overlays.default ];
