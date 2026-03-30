@@ -21,7 +21,7 @@ writeShellScriptBin "rpi-otp-provision-private-key" ''
     exit 1
   fi
   RANDOM_KEY=$(openssl rand -hex 32)
-  if [ "${#RANDOM_KEY}" -ne "32" ]; then
+  if [ "''${#RANDOM_KEY}" -ne "32" ]; then
     echo "Failed to generate random key"
     exit 2
   fi
