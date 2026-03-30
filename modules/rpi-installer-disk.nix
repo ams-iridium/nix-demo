@@ -34,7 +34,6 @@
               size = "2G";
               content = {
                 type = "swap";
-                randomEncryption = true; # Optional: enable encryption
               };
             };
             root = {
