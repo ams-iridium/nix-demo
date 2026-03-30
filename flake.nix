@@ -65,6 +65,11 @@
             '';
           in
           {
+            nix = {
+              settings = {
+                experimental-features = [ "nix-command" "flakes" ];
+              };
+            };
             services.getty.autologinUser = "adam";
             environment.systemPackages = [
               installScript

@@ -54,8 +54,6 @@ sequenceDiagram
   cryptsetup.service-->>rootfs: Unlock
   destroy cryptsetup.service
   cryptsetup.service->>initrd: Success
-  destroy /run/secret/luks.key
-  initrd--x/run/secret/luks.key: initrd instance is destoryed
   destroy initrd
   initrd-)rootfs: Boot into rootfs
 ```
@@ -67,4 +65,4 @@ After booting from the EEPROM bootloader, execution is handed off to initrd.  Us
   * This script reads the raw secret value from OTP, and uses a one-way hash to generate the luks secret key.
 * The `cryptsetup` service starts, unlocking the LUKS block containing the rootfs
   * This also unlocks any additional filesystem partitions loaded within the block (e.g. persistent user data)
-* The system boots into the rootfs, destroying the `initrd` instance as it boots.
+* The system mounts into the rootfs and boots as normal.
