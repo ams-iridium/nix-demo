@@ -16,7 +16,7 @@ writeShellScriptBin "rpi-otp-provision-private-key" ''
   # The '-c' flag ensures the key is not all 0s.
   rpi-otp-private-key -c
   CHECK_KEY_RESULT=$?
-  if [ $CHECK_KEY_RESULT -eq 0 ]; then
+  if [ "$CHECK_KEY_RESULT" -eq "0" ]; then
     echo "Secure key has already been written (or couldn't be read)"
     exit 1
   fi
