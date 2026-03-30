@@ -36,7 +36,7 @@
               attributes = [
                 2 # Legacy BIOS Bootable, for U-Boot to find extlinux config
               ];
-              size = "100%";
+              size = "3G";
               content = {
                 type = "filesystem";
                 format = "ext4";
@@ -44,6 +44,14 @@
                 mountOptions = [
                   "noatime"
                 ];
+              };
+            };
+            swap = {
+              priority = 2;
+              size = "100%";
+              content = {
+                type = "swap";
+                randomEncryption = true; # Optional: enable encryption
               };
             };
           };
