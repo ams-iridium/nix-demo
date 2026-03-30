@@ -28,6 +28,7 @@
     overlays.default = final: prev: {
       rpi-otp-private-key = final.callPackage ./packages/rpi-otp-private-key.nix { };
       rpi-otp-luks-key = final.callPackage ./packages/rpi-otp-luks-key.nix {};
+      rpi-otp-provision-private-key = final.callPackage ./packages/rpi-otp-provision-private-key.nix {};
     };
     
     nixosConfigurations = {
