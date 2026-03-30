@@ -35,6 +35,7 @@
               size = "16G";
               content = {
                 type = "swap";
+              };
             };
             root = {
               # label = "ESP";
