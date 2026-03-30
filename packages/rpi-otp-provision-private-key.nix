@@ -12,13 +12,12 @@ writeShellScriptBin "rpi-otp-provision-private-key" ''
     ])
   }:$PATH"
   
-  OPTIONAL_SALT="$1"
-  # The '-c' flag ensures the key is not all 0s.
+  # Generate a random key...
   RANDOM_KEY=$(openssl rand -hex 32)
   if [ "''${#RANDOM_KEY}" -ne "32" ]; then
     echo "Failed to generate random key"
     exit 2
   fi
-  set -e
+  # And write it to OTP.
   rpi-otp-private-key -w "$RANDOM_KEY"
 ''
