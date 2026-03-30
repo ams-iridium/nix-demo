@@ -30,6 +30,12 @@
                 ];
               };
             };
+            swap = {
+              priority = 2;
+              size = "16G";
+              content = {
+                type = "swap";
+            };
             root = {
               # label = "ESP";
               type = "EF00";  # EFI System Partition (ESP)
