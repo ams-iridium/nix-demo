@@ -30,21 +30,13 @@
                 ];
               };
             };
-            swap = {
-              priority = 2;
-              size = "2G";
-              content = {
-                type = "swap";
-                randomEncryption = true; # Optional: enable encryption
-              };
-            };
             root = {
               # label = "ESP";
               type = "EF00";  # EFI System Partition (ESP)
               attributes = [
                 2 # Legacy BIOS Bootable, for U-Boot to find extlinux config
               ];
-              size = "100%";
+              size = "4G";
               content = {
                 type = "filesystem";
                 format = "ext4";
@@ -54,7 +46,13 @@
                 ];
               };
             };
-
+            swap = {
+              size = "100%";
+              content = {
+                type = "swap";
+                randomEncryption = true; # Optional: enable encryption
+              };
+            };
           };
         };
       };
