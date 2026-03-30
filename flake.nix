@@ -43,6 +43,7 @@
             environment.systemPackages = [
               pkgs.rpi-otp-private-key
               pkgs.rpi-otp-luks-key
+              pkgs.rpi-otp-provision-private-key
             ];
           })
         ];        
