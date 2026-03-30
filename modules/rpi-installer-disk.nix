@@ -51,6 +51,7 @@
               size = "100%";
               content = {
                 type = "swap";
+                randomEncryption = true; # Optional: enable encryption
               };
             };
           };
