@@ -30,6 +30,12 @@
                 ];
               };
             };
+            installer-swap = {
+              size = "2G";
+              content = {
+                type = "swap";
+              };
+            };
             installer-rootfs = {
               size = "100%";
               content = {
