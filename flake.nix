@@ -50,6 +50,7 @@
       rpi5-installer = nixos-raspberrypi.lib.nixosSystemFull  {
         specialArgs = inputs;
         modules = [
+          ./modules/users/adam.nix
           ./modules/rpi5-hardware.nix
           ./modules/rpi-otp-luks-key.nix
           ./modules/rpi-installer-disk.nix
@@ -64,11 +65,15 @@
             '';
           in
           {
+            services.getty.autologinUser = "adam";
             environment.systemPackages = [
               installScript
             ];
             nixpkgs.overlays = [ self.overlays.default ];
             networking.nameservers = [ "8.8.8.8" "8.8.4.4" "2001:4860:4860::8888" "2001:4860:4860::8844"];
+            networking.hostName = "rpi5-nix-installer";
+            networking.firewall.enable = true;
+            security.sudo.wheelNeedsPassword = false;
           })
         ];
       };
