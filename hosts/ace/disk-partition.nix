@@ -86,6 +86,12 @@
               mountpoint = "/";
             };
           };
+          swap = {
+            size = "16G";
+            content = {
+              type = "swap";
+            };
+          };
           home = {
             size = "100%";
             content = {
