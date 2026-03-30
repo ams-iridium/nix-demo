@@ -55,22 +55,11 @@
           ./modules/rpi5-hardware.nix
           ./modules/rpi-otp-luks-key.nix
           ./modules/rpi-installer-disk.nix
+          ./modules/auto-installer-service.nix
           ({ pkgs, ... }: 
-          let
-            installScript = pkgs.writeShellScriptBin "pd-nix-install" ''
-              BRANCH="$1"
-              nix run 'github:nix-community/disko/latest#disko-install' -- \
-                --flake "github:pseudodesign/nix-pseudo-design/''${BRANCH}#ace" \
-                --mode format \
-                --disk main /dev/nvme0n1
-            '';
-          in
           {
             nixpkgs.overlays = [ self.overlays.default ];
             networking.nameservers = [ "8.8.8.8" "8.8.4.4" "2001:4860:4860::8888" "2001:4860:4860::8844"];
-            environment.systemPackages = [
-              installScript
-            ];
           })
         ];
       };
