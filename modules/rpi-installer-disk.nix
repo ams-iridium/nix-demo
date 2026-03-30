@@ -32,7 +32,7 @@
             };
             swap = {
               priority = 2;
-              size = "16G";
+              size = "2G";
               content = {
                 type = "swap";
                 randomEncryption = true; # Optional: enable encryption
