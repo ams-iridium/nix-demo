@@ -57,7 +57,7 @@
           ./modules/rpi5-hardware.nix
           ./modules/rpi-otp-luks-key.nix
           ./modules/rpi-installer-disk.nix
-          ({ pkgs, ... }: 
+          ({ pkgs, system, ... }: 
           let
             installScript = pkgs.writeShellScriptBin "pd-nix-install" ''
               BRANCH="$1"
