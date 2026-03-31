@@ -78,6 +78,12 @@
       pool = {
         type = "lvm_vg";
         lvs = {
+          swap = {
+            size = "16G";
+            content = {
+              type = "swap";
+            };
+          };
           rootfs = {
             size = "80G";
             content = {
