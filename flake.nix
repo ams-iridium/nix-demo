@@ -38,13 +38,13 @@
         modules = [
           ./hosts/ace
           ./modules/rpi-otp-luks-key.nix
-          ({ pkgs, system, ... }: {
+          ({ pkgs, ... }: {
             nixpkgs.overlays = [ self.overlays.default ];
             environment.systemPackages = [
               pkgs.rpi-otp-private-key
               pkgs.rpi-otp-luks-key
               pkgs.rpi-otp-provision-private-key
-              disko.packages.${system}.disko-install
+              disko.packages.aarch64-linux.disko-install
             ];
           })
         ];        
@@ -57,7 +57,7 @@
           ./modules/rpi5-hardware.nix
           ./modules/rpi-otp-luks-key.nix
           ./modules/rpi-installer-disk.nix
-          ({ pkgs, system, ... }: 
+          ({ pkgs, ... }: 
           let
             installScript = pkgs.writeShellScriptBin "pd-nix-install" ''
               BRANCH="$1"
@@ -77,7 +77,7 @@
             environment.systemPackages = [
               pkgs.rpi-otp-provision-private-key
               installScript
-              disko.packages.${system}.disko-install
+              disko.packages.aarch64-linux.disko-install
             ];
             nixpkgs.overlays = [ self.overlays.default ];
             networking.nameservers = [ "8.8.8.8" "8.8.4.4" "2001:4860:4860::8888" "2001:4860:4860::8844"];
