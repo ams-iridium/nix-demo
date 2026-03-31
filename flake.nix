@@ -62,7 +62,7 @@
             installScript = pkgs.writeShellScriptBin "pd-nix-install" ''
               BRANCH="$1"
               nix run 'github:nix-community/disko/latest#disko-install' -- \
-                --flake "github:pseudodesign/nix-pseudo-design/''${BRANCH}#ace" \
+                --flake "github:ams-iridium/nix-demo/''${BRANCH}#ace" \
                 --mode format \
                 --disk main /dev/nvme0n1
             '';
