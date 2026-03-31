@@ -38,12 +38,13 @@
         modules = [
           ./hosts/ace
           ./modules/rpi-otp-luks-key.nix
-          ({ pkgs, ... }: {
+          ({ pkgs, system, ... }: {
             nixpkgs.overlays = [ self.overlays.default ];
             environment.systemPackages = [
               pkgs.rpi-otp-private-key
               pkgs.rpi-otp-luks-key
               pkgs.rpi-otp-provision-private-key
+              disko.packages.${system}.disko-install
             ];
           })
         ];        
@@ -76,6 +77,7 @@
             environment.systemPackages = [
               pkgs.rpi-otp-provision-private-key
               installScript
+              disko.packages.${system}.disko-install
             ];
             nixpkgs.overlays = [ self.overlays.default ];
             networking.nameservers = [ "8.8.8.8" "8.8.4.4" "2001:4860:4860::8888" "2001:4860:4860::8844"];
